@@ -95,6 +95,19 @@ local Button = MainTab:CreateButton({
    end,
 })
 
+local Button = MainTab:CreateButton({
+   Name = "Auto Runes In Mine",
+   Callback = function()
+   while true do
+   local A_1 = "Rune"
+   local A_2 = "Rune2"
+   local Event = game:GetService("ReplicatedStorage").RE
+   Event:FireServer(A_1, A_2)
+   wait(0.1)
+ end
+   end,
+})  
+
 
 local MiscTab = Window:CreateTab("Misc", 4483362458) -- Title, Image
 
