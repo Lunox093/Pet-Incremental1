@@ -108,6 +108,18 @@ local Button = MainTab:CreateButton({
    end,
 })  
 
+local Button = MainTab:CreateButton({
+   Name = "Auto Runes In Mine",
+   Callback = function()
+   while true do
+   local A_1 = "RankUp"
+   local Event = game:GetService("ReplicatedStorage").RE
+   Event:FireServer(A_1)
+   wait(1)
+ end
+   end,
+}) 
+
 
 local MiscTab = Window:CreateTab("Misc", 4483362458) -- Title, Image
 
@@ -163,3 +175,6 @@ local Slider = MiscTab:CreateSlider({
         game.Players.LocalPlayer.Character.Humanoid.JumpPower = (Value)
    end,
 })
+
+
+local OtherTab = Window:CreateTab("Other", 4483362458)
