@@ -109,7 +109,7 @@ local Button = MainTab:CreateButton({
 })  
 
 local Button = MainTab:CreateButton({
-   Name = "Auto Runes In Mine",
+   Name = "Auto Rank",
    Callback = function()
    while true do
    local A_1 = "RankUp"
