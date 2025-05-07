@@ -10,8 +10,8 @@ local Window = Rayfield:CreateWindow({
        FileName = "YoutubeMenyanetyHub"
     },
     Discord = {
-       Enabled = false,
-       Invite = "noinvitelink", -- The Discord invite code, do not include discord.gg/. E.g. discord.gg/ABCD would be ABCD
+       Enabled = true,
+       Invite = "https://discord.gg/gbVWxRFtqt", -- The Discord invite code, do not include discord.gg/. E.g. discord.gg/ABCD would be ABCD
        RememberJoins = true -- Set this to false to make them join the discord every time they load it up
     },
     KeySystem = true, -- Set this to true to use our key system
@@ -177,4 +177,44 @@ local Slider = MiscTab:CreateSlider({
 })
 
 
-local OtherTab = Window:CreateTab("Other", 4483362458)
+local OtherTab = Window:CreateTab("Other", nil) 
+
+local Button = OtherTab:CreateButton({
+    Name = "Join Discord",
+    Callback = function()
+        
+        local success, err = pcall(function()
+            
+            if request then
+                request({
+                    Url = "http://localhost:6463/rpc?v=1",
+                    Method = "POST",
+                    Headers = {
+                        ["Content-Type"] = "application/json",
+                        ["Origin"] = "https://discord.com"
+                    },
+                    Body = game:GetService("HttpService"):JSONEncode({
+                        cmd = "INVITE_BROWSER",
+                        args = {
+                            code = "gbVWxRFtqt"
+                        },
+                        nonce = game:GetService("HttpService"):GenerateGUID(false)
+                    })
+                })
+            else
+                
+                setclipboard("https://discord.gg/gbVWxRFtqt")
+                game:GetService("StarterGui"):SetCore("SendNotification", {
+                    Title = "Discord",
+                    Text = "The link has been copied to the clipboard!",
+                    Duration = 5
+                })
+            end
+        end)
+        
+        if not success then
+            local http = game:GetService("HttpService")
+            http:JSONDecode(game:HttpGet("https://discord.com/api/v9/invites/gbVWxRFtqt?with_counts=true&with_expiration=true"))
+        end
+    end
+})
